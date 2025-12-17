@@ -1,12 +1,10 @@
 package com.malesko.smt.audio
 
 import android.media.*
-import kotlin.concurrent.thread
 import androidx.annotation.RequiresPermission
 import android.Manifest
 
 
-//TODO Automatic check for the microphone format aka the use float boolean.
 class TunerEngine(
     private val sampleRate: Int = 44100,
     private val frameSize: Int = 4096,
