@@ -1,0 +1,16 @@
+<resources>
+    <style name="Theme.SMT" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/accent_blue_2</item>
+        <item name="colorPrimaryVariant">@color/accent_blue</item>
+        <item name="colorSecondary">@color/accent_blue_2</item>
+
+        <item name="android:windowBackground">@color/bg_900</item>
+        <item name="colorSurface">@color/surface_800</item>
+        <item name="colorOnSurface">@color/text_soft</item>
+        <item name="android:textColor">@color/text_soft</item>
+
+        <!-- System bars -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

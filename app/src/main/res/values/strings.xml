@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SMT</string>
+    <string name="splash_text">Song My Tuner</string>
+    <string name="settings">Settings</string>
+</resources>
