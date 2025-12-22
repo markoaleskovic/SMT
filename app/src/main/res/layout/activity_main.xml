@@ -1,68 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawerLayout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_900"
     tools:context=".MainActivity">
 
-    <!-- Main content -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_900">
-
-        <!-- top-right menu button -->
-        <ImageButton
-            android:id="@+id/btnMenu"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Menu"
-            android:src="@android:drawable/ic_menu_more"
-            app:tint="@color/text_soft"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="12dp"/>
-
-        <!-- your existing views -->
-        <TextView
-            android:id="@+id/tvNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="--"
-            android:textColor="@color/text_soft"
-            android:textSize="72sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/tvFreq"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"/>
-
-        <TextView
-            android:id="@+id/tvFreq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0.0 Hz"
-            android:textColor="@color/text_soft"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNote"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Right-side drawer -->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView"
+    <!-- Note -->
+    <TextView
+        android:id="@+id/tvNote"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="@color/surface_800"
-        app:itemIconTint="@color/text_soft"
-        app:itemTextColor="@color/text_soft"
-        app:menu="@menu/menu_drawer" />
-</androidx.drawerlayout.widget.DrawerLayout>
+        android:layout_height="wrap_content"
+        android:text="--"
+        android:textColor="@color/text_soft"
+        android:textSize="72sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tvFreq"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- Frequency -->
+    <TextView
+        android:id="@+id/tvFreq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0 Hz"
+        android:textColor="@color/text_soft"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNote" />
+
+    <!-- Cents visualization (9 ticks) -->
+    <LinearLayout
+        android:id="@+id/centBar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="32dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tvFreq"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 4 left ticks (small->medium), center (largest), 4 right (medium->small) -->
+        <View
+            android:id="@+id/tickL4"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/tick_inactive" />
+
+        <View
+            android:id="@+id/tickL3"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/tick_inactive" />
+
+        <View
+            android:id="@+id/tickL2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/tick_inactive" />
+
+        <View
+            android:id="@+id/tickL1"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/tick_inactive" />
+
+        <View
+            android:id="@+id/tickC"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:background="@drawable/tick_inactive" />
+
+        <View
+            android:id="@+id/tickR1"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/tick_inactive" />
+
+        <View
+            android:id="@+id/tickR2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/tick_inactive" />
+
+        <View
+            android:id="@+id/tickR3"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/tick_inactive" />
+
+        <View
+            android:id="@+id/tickR4"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/tick_inactive" />
+    </LinearLayout>
+
+
+    <!-- Bottom navigation bar -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bottom_bar_bg"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/navSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Settings"
+            android:textColor="@color/text_soft"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/navTuner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tuner"
+            android:textColor="@color/text_soft"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/navSongs"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Songs"
+            android:textColor="@color/text_soft"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
