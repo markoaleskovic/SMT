@@ -12,4 +12,6 @@
     <color name="text_soft">#E8EEF5</color>   <!-- soft white -->
     <color name="accent_blue">#223A6B</color> <!-- dark blue accent -->
     <color name="accent_blue_2">#2E56A8</color>
+    <color name="note_ok">#4CAF50</color>
+    <color name="note_bad">#E57373</color>
 </resources>
