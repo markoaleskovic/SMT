@@ -1,18 +1,10 @@
 package com.malesko.smt
 
-import android.Manifest
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.media.AudioFormat
-import android.media.AudioRecord
-import android.media.MediaRecorder
 import android.os.Bundle
 import android.view.animation.DecelerateInterpolator
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.malesko.smt.audio.NativeYin
 import com.malesko.smt.databinding.ActivitySplashScreenBinding
 import kotlin.concurrent.thread
@@ -28,7 +20,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         startLoadingAnimation()
 
-        // Kick off native init immediately
+        //Kick off native init
         warmUpNativeAsync()
     }
 
@@ -60,7 +52,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
     @Synchronized
     private fun maybeRedirect() {
-        // Only proceed when BOTH are ready
         if (!nativeReady) return
 
         runOnUiThread {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="@string/settings"
+        android:icon="@android:drawable/ic_menu_preferences" />
+    <item
+        android:id="@+id/tunerFragment"
+        android:title="@string/tuner"
+        android:icon="@android:drawable/ic_menu_info_details" />
+    <item
+        android:id="@+id/songsFragment"
+        android:title="@string/songs"
+        android:icon="@android:drawable/ic_menu_agenda" />
+</menu>
