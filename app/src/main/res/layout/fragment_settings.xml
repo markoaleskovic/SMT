@@ -21,17 +21,17 @@
             android:paddingBottom="12dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnUser"
+            android:id="@+id/btnPracticeReminder"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/user"
-            android:textSize="@dimen/settingsTxt"
+            android:layout_marginTop="12dp"
+            android:text="@string/practice_reminder"
             android:minHeight="56dp"
-            app:icon="@drawable/user_24"
+            android:textSize="@dimen/settingsTxt"
             app:iconGravity="textStart"
             app:iconPadding="12dp"
-            app:iconTint="?attr/colorOnSurface"/>
+            app:iconTint="?attr/colorOnSurface" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMySongs"

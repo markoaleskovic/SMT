@@ -18,4 +18,7 @@
     <string name="app_version_placeholder">Version Placehoder</string>
     <string name="select_tuning">Select tuning</string>
     <string name="mic_permission">Mic permission required</string>
+    <string name="practice_reminder">Practice reminder</string>
+    <string name="search_artist_band">Search artist/band</string>
+    <string name="add">Add</string>
 </resources>
