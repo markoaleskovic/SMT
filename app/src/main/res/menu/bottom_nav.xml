@@ -2,14 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/settingsFragment"
-        android:title="@string/settings"
-        android:icon="@android:drawable/ic_menu_preferences" />
+        android:title="@string/settings" />
     <item
         android:id="@+id/tunerFragment"
-        android:title="@string/tuner"
-        android:icon="@android:drawable/ic_menu_info_details" />
+        android:title="@string/tuner" />
     <item
         android:id="@+id/songsFragment"
-        android:title="@string/songs"
-        android:icon="@android:drawable/ic_menu_agenda" />
+        android:title="@string/songs" />
 </menu>

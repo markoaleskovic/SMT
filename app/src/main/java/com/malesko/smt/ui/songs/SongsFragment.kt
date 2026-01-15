@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.malesko.smt.data.local.db.SongsRepository
 import com.malesko.smt.databinding.FragmentSongsBinding
+import com.malesko.smt.data.local.prefs.PrefsKeys
+import androidx.core.content.edit
 
 
 class SongsFragment : Fragment() {
@@ -73,12 +75,13 @@ class SongsFragment : Fragment() {
 
 
     private fun saveCurrentTuning(tuning: String) {
-        val prefs = requireContext().getSharedPreferences("tuner_prefs", Context.MODE_PRIVATE)
-        prefs.edit()
-            .putString(KEY_CURRENT_TUNING, tuning)
-            .putString("pref_tuning_label", tuning) // optional, keeps button label consistent
-            .apply()
+        val prefs = requireContext().getSharedPreferences(PrefsKeys.PREFS_TUNER, Context.MODE_PRIVATE)
+        prefs.edit {
+            putString(PrefsKeys.KEY_CURRENT_TUNING, tuning)
+                .putString(PrefsKeys.KEY_TUNING_LABEL, tuning)
+        }
     }
+
 
 
     override fun onDestroyView() {
@@ -86,7 +89,4 @@ class SongsFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
-        const val KEY_CURRENT_TUNING = "current_tuning"
-    }
 }

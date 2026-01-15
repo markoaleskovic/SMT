@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginVertical="6dp"
     app:cardUseCompatPadding="true"
     app:cardElevation="1dp">
@@ -17,7 +17,7 @@
             android:id="@+id/tvArtist"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Artist"
+            tools:text="Artist"
             android:textStyle="bold"
             android:textSize="16sp"
             android:maxLines="1"
@@ -30,7 +30,7 @@
             android:id="@+id/tvTuning"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="D A D G B E"
+            tools:text="E A D G B E"
             android:textSize="14sp"
             android:maxLines="2"
             android:layout_marginTop="6dp"

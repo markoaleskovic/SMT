@@ -16,6 +16,6 @@
 
     <fragment
         android:id="@+id/songsFragment"
-        android:name="com.malesko.smt.ui.songs.SongsFragment"
+        android:name="com.malesko.smt.ui.songs.SongsContainerFragment"
         android:label="Songs" />
 </navigation>
