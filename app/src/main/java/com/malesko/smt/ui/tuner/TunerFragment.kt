@@ -46,24 +46,30 @@ class TunerFragment : Fragment() {
 
         songsRepo = SongsRepository(requireContext())
 
-        binding.btnTuning.setOnClickListener {
-            showTuningPicker()
-        }
+        binding.btnTuning.setOnClickListener { showTuningPicker() }
 
-        // restore saved tuning label on button
         val savedLabel = prefs.getString(PREF_TUNING_LABEL, null)
-        if (!savedLabel.isNullOrBlank()) {
-            binding.btnTuning.text = savedLabel
-        }
+        if (!savedLabel.isNullOrBlank()) binding.btnTuning.text = savedLabel
 
-        val savedId = prefs.getLong(PREF_TUNING_ID, -1L)
-        if (savedId != -1L) {
-            // simplest: fetch by id and set currentTargetNotes (implement repo function below)
-            val t = songsRepo.getTuningById(savedId)
-            if (t != null) currentTargetNotes = parseTuningToTargets(t.tuning)
+        val savedTuning = prefs.getString(KEY_CURRENT_TUNING, null)
+        if (!savedTuning.isNullOrBlank()) {
+            currentTargetNotes = parseTuningToTargets(savedTuning)
         }
 
         return binding.root
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        val savedLabel = prefs.getString(PREF_TUNING_LABEL, null)
+        if (!savedLabel.isNullOrBlank()) binding.btnTuning.text = savedLabel
+
+        val savedTuning = prefs.getString(KEY_CURRENT_TUNING, null)
+        if (!savedTuning.isNullOrBlank()) {
+            currentTargetNotes = parseTuningToTargets(savedTuning)
+        }
     }
 
 
@@ -164,7 +170,6 @@ class TunerFragment : Fragment() {
     private val prefs by lazy {
         requireContext().getSharedPreferences("tuner_prefs", Context.MODE_PRIVATE)
     }
-    private val PREF_TUNING_ID = "pref_tuning_id"
     private val PREF_TUNING_LABEL = "pref_tuning_label"
 
 
@@ -182,20 +187,22 @@ class TunerFragment : Fragment() {
     )
 
     private fun parseTuningToTargets(tuning: String): List<TargetNote> {
-        // expects "DADGBE" etc.
-        val letters = tuning.trim().uppercase()
-        require(letters.length == 6) { "Tuning must have 6 notes (e.g., DADGBE)" }
+        val notes = tuning.trim()
+            .uppercase()
+            .split(Regex("\\s+"))
+            .filter { it.isNotBlank() }
 
-        // Guitar string octaves: 6th..1st are (2,2,3,3,3,4)
+        require(notes.size == 6) { "Tuning must have 6 notes (e.g., D A D G B E)" }
+
         val octaves = listOf(2, 2, 3, 3, 3, 4)
 
-        return letters.mapIndexed { idx, ch ->
-            TargetNote(ch.toString(), octaves[idx])
+        return notes.mapIndexed { idx, note ->
+            TargetNote(note, octaves[idx])
         }
     }
 
     private fun showTuningPicker() {
-        val tunings = songsRepo.getAllTunings()
+        val tunings = songsRepo.getDistinctTunings()
         if (tunings.isEmpty()) {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Tunings")
@@ -204,26 +211,26 @@ class TunerFragment : Fragment() {
                 .show()
             return
         }
-        val labels = tunings.map { "${it.title}: ${it.tuning}" }.toTypedArray()
+
+        val labels = tunings.toTypedArray()
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Select tuning")
             .setItems(labels) { _, which ->
                 val selected = tunings[which]
-
-                // Update UI
-                binding.btnTuning.text = labels[which]
+                binding.btnTuning.text = selected
 
                 prefs.edit()
-                    .putLong(PREF_TUNING_ID, selected.id)
-                    .putString(PREF_TUNING_LABEL, labels[which])
+                    .putString(KEY_CURRENT_TUNING, selected)
+                    .putString(PREF_TUNING_LABEL, selected)
                     .apply()
 
-                currentTargetNotes = parseTuningToTargets(selected.tuning)
+                currentTargetNotes = parseTuningToTargets(selected)
             }
             .setNegativeButton("Cancel", null)
             .show()
     }
+
 
     private fun isTargetNote(detected: String, targets: List<TargetNote>): Boolean {
         val name = detected.takeWhile { it.isLetter() || it == '#' }
@@ -231,5 +238,8 @@ class TunerFragment : Fragment() {
         return targets.any { it.name == name && it.octave == octave }
     }
 
+    private companion object {
+        const val KEY_CURRENT_TUNING = "current_tuning"
+    }
 
 }
